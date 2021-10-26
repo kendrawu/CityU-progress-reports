@@ -9,7 +9,7 @@ vaccine3 = 0.9
 # Initialization
 N=1000
 init       <- c(S1 = N/6-1, S2 = N/6, S3 = N/6, S4 = N/6, S5 = N/6, S6 = N/6, E = 0, I = 1, R = 0.0)
-parameters <- c(beta1 = 0.003, beta2 = 0.008, gamma = 0.03, sigma = 0.01)
+parameters <- c(beta1 = 0.003, beta2 = 0.003, gamma = 0.03, sigma = 0.01)
 t = 1000
 times      <- seq(0, t, by = 1)
 
@@ -18,13 +18,13 @@ sir <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
     
-    dS1 <- -beta1 * S1 * I * (1-vaccine1) * 0.5
-    dS2 <- -beta1 * S2 * I * (1-vaccine2) * 0.5
-    dS3 <- -beta1 * S3 * I * (1-vaccine3) * 0.5
-    dS4 <- -beta2 * S4 * I * (1-vaccine1) * 0.5
-    dS5 <- -beta2 * S5 * I * (1-vaccine2) * 0.5
-    dS6 <- -beta2 * S6 * I * (1-vaccine3) * 0.5
-    dE  <- beta1*S1*I*(1-vaccine1)/2+beta1*S2*I*(1-vaccine2)/2+beta1*S3*I*(1-vaccine3)/2+beta2*S4*I*(1-vaccine1)/2+beta2*S5*I*(1-vaccine2)/2+beta2*S6*I*(1-vaccine3)/2- sigma * E
+    dS1 <- -beta1 * S1 * I * (1-vaccine1)
+    dS2 <- -beta1 * S2 * I * (1-vaccine2)
+    dS3 <- -beta1 * S3 * I * (1-vaccine3)
+    dS4 <- -beta2 * S4 * I * (1-vaccine1)
+    dS5 <- -beta2 * S5 * I * (1-vaccine2)
+    dS6 <- -beta2 * S6 * I * (1-vaccine3)
+    dE  <- beta1*S1*I*(1-vaccine1)+beta1*S2*I*(1-vaccine2)+beta1*S3*I*(1-vaccine3)+beta2*S4*I*(1-vaccine1)+beta2*S5*I*(1-vaccine2)+beta2*S6*I*(1-vaccine3)- sigma * E
     dI  <- sigma * E - gamma * I
     dR  <- gamma * I
     
